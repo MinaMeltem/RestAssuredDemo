@@ -1,6 +1,10 @@
 
-import io.restassured.RestAssured;
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+
 
 
 public class Basics {
@@ -17,10 +21,11 @@ public class Basics {
 				
 				/*header("", "").
 				  cookie("","").
-				  body("")  // POsT body */
+				  body("")  // POST body */
 				
-				when().get("svc/search/v2/articlesearch.json").		
-				then().assertThat().statusCode(200);		
+				when().get("svc/search/v2/articlesearch.json").	//resource	
+				then().assertThat().statusCode(200).contentType(ContentType.JSON).and(). //.contenttype --> header
+				body("response.docs[0].abstract", equalTo("The Trump bump probably peaked too early."));
 
 	}
 
