@@ -1,19 +1,18 @@
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
-
+import org.testng.annotations.*;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
 
 
 public class Basics {
-
-	public static void main(String[] args) {
+	
+	@Test
+	public void Test1() {		
 		
-		//BasedURL (Host)
-		
-		RestAssured.baseURI = "https://api.nytimes.com";
+		RestAssured.baseURI = "https://api.nytimes.com"; //BasedURL (Host)
 		
 		given().
 				param("q","election").
@@ -24,8 +23,20 @@ public class Basics {
 				  body("")  // POST body */
 				
 				when().get("svc/search/v2/articlesearch.json").	//resource	
-				then().assertThat().statusCode(200).contentType(ContentType.JSON).and(). //.contenttype --> header
-				body("response.docs[0].abstract", equalTo("The Trump bump probably peaked too early."));
+				then().assertThat().statusCode(200).contentType(ContentType.JSON) //.contenttype --> header
+				.and(). 
+				body("response.docs[0].abstract", equalTo("The Trump bump probably peaked too early."))
+				.and()
+				.body("response.docs[3].keywords[1].value", equalTo("Presidential Election of 2020"))
+				.and()
+				.header("server", "nginx"); // value from header
+		
+		// GET REQUEST
+		// Verify status code of the reponse --> 200
+		// Verify Whether the content-type response is JSON or not
+		// Putting assertion on response body
+		// Putting assertion of header reposnse
+						
 
 	}
 
