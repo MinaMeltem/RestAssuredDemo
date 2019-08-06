@@ -96,5 +96,7 @@
 	<classpathentry kind="lib" path="C:/Users/MEL/Desktop/QA/API Testing/scala-support-4.0.0-dist/scala-support-4.0.0-deps/org.apache.sling.javax.activation-0.1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/MEL/Desktop/QA/API Testing/scala-support-4.0.0-dist/scala-support-4.0.0-deps/scala-library-2.12.7.jar"/>
 	<classpathentry kind="lib" path="C:/Users/MEL/Desktop/QA/API Testing/scala-support-4.0.0-dist/scala-support-4.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/MEL/Desktop/QA/API Testing/testng-6.13.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/MEL/Desktop/QA/API Testing/jcommander-1.48.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
