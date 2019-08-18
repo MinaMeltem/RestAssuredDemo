@@ -1,9 +1,15 @@
 import static io.restassured.RestAssured.*;
 import io.restassured.RestAssured;
 import static org.hamcrest.Matchers.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import files.*;
 
 
 
@@ -12,45 +18,65 @@ public class AddDelete {
 	/*
 	 * Add a new place to API
 	 * Delete the place just created from API
-	 * Logic: POST new place and get response
-	 * extract the ID value from response, 
-	 * and DELETE the place by using the
+	 * Logic: 
+	 * 1 -POST new place and get response
+	 * 2 -Extract the ID value from response, 
+	 * 3 -DELETE the place by using extracted place_id
+	 * Note: DELETE is also POST request
 	 * */
 	
-	@Test
-	public void addDeletePlace() {
-		
-		String newPlace = "{\r\n" + 
-				"    \"location\":{\r\n" + 
-				"        \"lat\" : -38.383494,\r\n" + 
-				"        \"lng\" : 33.427362\r\n" + 
-				"    },\r\n" + 
-				"    \"accuracy\":50,\r\n" + 
-				"    \"name\":\"Frontline house\",\r\n" + 
-				"    \"phone_number\":\"(+91) 983 893 3937\",\r\n" + 
-				"    \"address\" : \"29, side layout, cohen 09\",\r\n" + 
-				"    \"types\": [\"shoe park\",\"shop\"],\r\n" + 
-				"    \"website\" : \"http://google.com\",\r\n" + 
-				"    \"language\" : \"French-IN\"\r\n" + 
-				"}";
-		
-		RestAssured.baseURI = "http://216.10.245.166";
-		Response res = given().
-				queryParam("key","qaclick123").
-				body(newPlace).
-				when().
-				post("/maps/api/place/add/json").
-				then().assertThat().statusCode(200).
-				and().contentType(ContentType.JSON).
-				body("status",equalTo("OK")).
-				extract().response();	
-		
-		String response = res.asString();
-		System.out.println(response);
-						
+	Properties prop = new Properties(); // prop object will read and pass the key value from properties file (Host etc..)
+	Resources rcs = new Resources();
+	Payload pld =  new Payload();
+	
+	
+	@BeforeTest
+	
+	public void getData() throws IOException {			
+		FileInputStream propFile = new FileInputStream("C:\\Users\\MEL\\Desktop\\QA\\Selenium\\Exercises\\APIautomation\\RestAssuredDemo\\src\\files\\env.properties");//tell where the properties file is
+		prop.load(propFile);   //integrating the file to FIS object		
+		//prop.get("HOST");
 	}
 	
 	
-	
+	@Test
+	public void addDeletePlace() {		
+		
+		// Task 1 : Adding a place
+		String newPlace =pld.getPost();
+		RestAssured.baseURI = prop.getProperty("HOST");
+		Response res = given().
+				queryParam("key",prop.getProperty("KEY")).
+				body(newPlace).
+				when().
+				post(rcs.postData()).
+				then().assertThat().statusCode(200).
+				and().contentType(ContentType.JSON).
+				body("status",equalTo("OK")).
+				extract().response(); // -----> Extracting response and putting it in Response type 'res' variable	 
+		
+		
+		// Task 2 
+		String responseStr = res.asString(); // Concatinating response type into string type 
+		System.out.println(responseStr); 
+		JsonPath js = new JsonPath(responseStr); //Convert responseStr string into json tye
+		String p_id = js.get("place_id");//extraxting place_id from json
+		System.out.println(p_id);
+						
+		
+		// Task3 place the plac_id in the post request
+		given().
+		queryParam("key", prop.getProperty("KEY") ).
+		body("{\n"
+				+ "\"place_id\": \"" + p_id + "\"\n" 
+		+"}").
+		 
+		when().
+		post(rcs.deleteData()). //post delete request
+		then().assertThat().statusCode(200).
+		and().contentType(ContentType.JSON).
+		body("status",equalTo("OK")); //succesfully deleted 		
+		
+	}
 
 }
