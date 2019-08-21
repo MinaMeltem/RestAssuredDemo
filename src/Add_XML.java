@@ -19,6 +19,7 @@ public class Add_XML {
 	Properties prop = new Properties();
 	Resources rcs = new Resources();
 	Payload pld =  new Payload();
+	ReUsables rusbl = new ReUsables();
 	
 	
 	@BeforeTest
@@ -32,7 +33,7 @@ public class Add_XML {
 	@Test
 	public void addPlace() throws IOException {			
 		// from xml to str
-		String newPlace = rcs.GenerateSringFromResource("C:\\Users\\MEL\\Desktop\\QA\\Selenium\\Exercises\\APIautomation\\RestAssuredDemo\\src\\files\\payload.xml"); 
+		String newPlace = rusbl.GenerateSringFromResource("C:\\Users\\MEL\\Desktop\\QA\\Selenium\\Exercises\\APIautomation\\RestAssuredDemo\\src\\files\\payload.xml"); 
 		RestAssured.baseURI = prop.getProperty("HOST");
 		Response res = given().
 				queryParam("key",prop.getProperty("KEY")).
@@ -45,11 +46,11 @@ public class Add_XML {
 				extract().response(); 	
 		
 				//To see the response format, so I can use proper assertion
-				String resStr = res.asString();//from xml to string
-				System.out.println(resStr);//display for test purpose
-				XmlPath x_path = new XmlPath(resStr); //convert response from string to xml
-				String p_id = x_path.get("response.place_id");//extract
-				System.out.println(p_id);
+				XmlPath xp = rusbl.rawToXML(res); //convert raw response to XML
+				String p_id = xp.get("response.place_id");//extract
+				System.out.print(p_id);//test purpose
+				
+				
 
 	}
 

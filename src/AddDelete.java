@@ -28,6 +28,7 @@ public class AddDelete {
 	Properties prop = new Properties(); // prop object will read and pass the key value from properties file (Host etc..)
 	Resources rcs = new Resources();
 	Payload pld =  new Payload();
+	ReUsables rusbl = new ReUsables();
 	
 	
 	@BeforeTest
@@ -56,12 +57,10 @@ public class AddDelete {
 				extract().response(); // -----> Extracting response and putting it in Response type 'res' variable	 
 		
 		
-		// Task 2 
-		String responseStr = res.asString(); // Concatinating response type into string type 
-		System.out.println(responseStr); 
-		JsonPath js = new JsonPath(responseStr); //Convert responseStr string into json tye
+		// Task 2		
+		JsonPath js = rusbl.rawToJson(res); //Convert responseStr string into json tye
 		String p_id = js.get("place_id");//extraxting place_id from json
-		System.out.println(p_id);
+		System.out.println(p_id); // test purpose
 						
 		
 		// Task3 place the plac_id in the post request

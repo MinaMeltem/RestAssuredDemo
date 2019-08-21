@@ -2,20 +2,20 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="4235" started-at="2019-08-21T00:31:46Z" finished-at="2019-08-21T00:31:50Z">
+  <suite name="Default suite" duration-ms="4059" started-at="2019-08-21T01:56:20Z" finished-at="2019-08-21T01:56:24Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="4235" started-at="2019-08-21T00:31:46Z" finished-at="2019-08-21T00:31:50Z">
-      <class name="Add_XML">
-        <test-method status="PASS" signature="getData()[pri:0, instance:Add_XML@55d56113]" name="getData" is-config="true" duration-ms="18" started-at="2019-08-20T20:31:46Z" finished-at="2019-08-20T20:31:46Z">
+    <test name="Default test" duration-ms="4059" started-at="2019-08-21T01:56:20Z" finished-at="2019-08-21T01:56:24Z">
+      <class name="AddDelete">
+        <test-method status="PASS" signature="getData()[pri:0, instance:AddDelete@55d56113]" name="getData" is-config="true" duration-ms="15" started-at="2019-08-20T21:56:20Z" finished-at="2019-08-20T21:56:20Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getData -->
-        <test-method status="PASS" signature="addPlace()[pri:0, instance:Add_XML@55d56113]" name="addPlace" duration-ms="4176" started-at="2019-08-20T20:31:46Z" finished-at="2019-08-20T20:31:50Z">
+        <test-method status="PASS" signature="addDeletePlace()[pri:0, instance:AddDelete@55d56113]" name="addDeletePlace" duration-ms="4017" started-at="2019-08-20T21:56:20Z" finished-at="2019-08-20T21:56:24Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- addPlace -->
-      </class> <!-- Add_XML -->
+        </test-method> <!-- addDeletePlace -->
+      </class> <!-- AddDelete -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
