@@ -13,3 +13,14 @@
     <website>http://google.com</website>
     <language>tamil-IN</language>
 </root>
+
+
+<!--  Just for reference  -->
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<response>
+   <status>OK</status>
+   <place_id>4cb348ec5c3b18e876ca7129e5499fdb</place_id>
+   <scope>APP</scope>
+   <reference>60208f58b8017b46c8a51f807009ea2260208f58b8017b46c8a51f807009ea22</reference>
+   <id>60208f58b8017b46c8a51f807009ea22</id>
+</response> -->

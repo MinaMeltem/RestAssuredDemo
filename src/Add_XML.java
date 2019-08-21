@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
 import files.*;
 
@@ -35,17 +36,20 @@ public class Add_XML {
 		RestAssured.baseURI = prop.getProperty("HOST");
 		Response res = given().
 				queryParam("key",prop.getProperty("KEY")).
-				body(newPlace).
+				body(newPlace). // post body
 				when().
-				post(rcs.addXML()).
+				post(rcs.addXML()).//resource
 				then().assertThat().statusCode(200).
 				and().contentType(ContentType.XML).
 				//body("status",equalTo("OK")).// status code is not equal to this, also this one is optional
 				extract().response(); 	
 		
 				//To see the response format, so I can use proper assertion
-				String resStr = res.asString();
-				System.out.println(resStr);
+				String resStr = res.asString();//from xml to string
+				System.out.println(resStr);//display for test purpose
+				XmlPath x_path = new XmlPath(resStr); //convert response from string to xml
+				String p_id = x_path.get("response.place_id");//extract
+				System.out.println(p_id);
 
 	}
 
