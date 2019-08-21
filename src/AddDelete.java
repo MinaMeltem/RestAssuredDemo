@@ -59,7 +59,7 @@ public class AddDelete {
 		
 		// Task 2		
 		JsonPath js = rusbl.rawToJson(res); //Convert responseStr string into json tye
-		String p_id = js.get("place_id");//extraxting place_id from json
+		String p_id = js.get("place_id");//extraxting place_id from json (test purpose)
 		System.out.println(p_id); // test purpose
 						
 		

@@ -47,7 +47,7 @@ public class Add_XML {
 		
 				//To see the response format, so I can use proper assertion
 				XmlPath xp = rusbl.rawToXML(res); //convert raw response to XML
-				String p_id = xp.get("response.place_id");//extract
+				String p_id = xp.get("response.place_id");//extraxting place_id from json (test purpose)
 				System.out.print(p_id);//test purpose
 				
 				
